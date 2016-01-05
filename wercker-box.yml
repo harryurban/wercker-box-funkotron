@@ -1,5 +1,7 @@
 name: jdk8-sbt-node5
-version: 1.0.0
+version: 1.0.
+inherits: wercker/default
+platform: ubuntu@12.04
 description: Box for building Funkotron
 keywords:
   - java
@@ -11,7 +13,7 @@ os: ubuntu@12.04
 env:
   SBT_OPTS: -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:PermSize=256M -XX:MaxPermSize=512M
   IVY_CACHE_DIR: '"$WERCKER_CACHE_DIR/ivy"'
-script: |-
+script: |
   # Install Java 8 
   sudo apt-get update
   sudo apt-get install python-software-properties curl wget -y
@@ -20,22 +22,6 @@ script: |-
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
   sudo apt-get install oracle-java8-installer -qq
   sudo apt-get install oracle-java8-set-default -y
-
-  # Install maven
-  sudo apt-get install maven
-
-  # Install Gradle
-  sudo add-apt-repository ppa:cwchien/gradle -y
-  sudo apt-get update
-  sudo apt-get install gradle -y
-
-  # Install ant
-  sudo apt-get install ant ant-contrib ivy ivy-doc -y -qq
-
-   # We should have ant and ivy available
-  type ant || { echo "I expected ant to be available. Aborting."; exit 1; }
-  type mvn || { echo "I expected maven to be available. Aborting."; exit 1; }
-  type gradle || { echo "No gradle command found...aborting"; exit 1; }
   
   # Install node
   export NODEVERSION=5.3.0
