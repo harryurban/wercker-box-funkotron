@@ -1,5 +1,5 @@
 name: jdk8-sbt-node5
-version: 1.0.
+version: 1.0.0
 inherits: wercker/default
 platform: ubuntu@12.04
 description: Box for building Funkotron
